@@ -42,3 +42,7 @@ Deploy using token
 tool-name --token=TOKEN_HERE
 ```
 
+Deploy using ssh key
+```
+tool-name --ssh=PATH_TO_KEY
+```
