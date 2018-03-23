@@ -1,0 +1,22 @@
+{
+  "name": "deploy-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "deploytool": "./index.js"
+  },
+  "dependencies": {
+    "commander": "^2.15.1",
+    "glob": "^7.1.2",
+    "inquirer": "^5.1.0",
+    "lodash": "^4.17.5",
+    "tar": "^4.4.1",
+    "tmp": "0.0.33"
+  }
+}
