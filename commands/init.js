@@ -1,4 +1,5 @@
-const fs = require("fs");
+const util = require("util");
+const writeFile = util.promisify(require("fs").writeFile);
 const path = require("path");
 const inquirer = require("inquirer");
 const utils = require("../utils");
@@ -34,24 +35,16 @@ const createConfig = config => {
     return new Promise.reject("Not valid config");
   }
 
-  return new Promise((resolve, reject) => {
-    const pathRes = path.resolve(process.cwd(), utils.CONFIG_NAME);
-    //console.log(process.cwd());
-    fs.writeFile(pathRes, JSON.stringify(config, null, "\t"), "utf8", err => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve("Config created");
-      }
-    });
-  });
+  const pathRes = path.resolve(process.cwd(), utils.CONFIG_NAME);
+  //console.log(process.cwd());
+  return writeFile(pathRes, JSON.stringify(config, null, "\t"), "utf8");
 };
 
 const flow = () =>
   askQuestions()
     .then(createConfig)
     .then(end => {
-      console.log({ end });
+      console.log("done");
     })
     .catch(err => {
       console.log({ err });

@@ -75,12 +75,12 @@ const uploadFiles = (cred, { server, path }, zip) => {
 };
 
 const flow = options => {
-  const config = utils.getConfig(options.config);
+  const config = utils.applyOptions(utils.getConfig(options.config), options);
 
   compressFiles(config)
     .then(zip => {
       console.log(zip);
-      return uploadFiles(cred, config, zip.file);
+      return uploadFiles(options, config, zip.file);
     })
     .then(res => {
       console.log(res);
