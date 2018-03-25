@@ -4,7 +4,8 @@ const tmp = require("tmp");
 const glob = require("glob").sync;
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
-const _ = require("lodash");
+const pipe = require("lodash/fp/pipe");
+const last = require("lodash/last");
 
 const utils = require("../utils");
 
@@ -49,7 +50,7 @@ const compressFiles = ({ public }) => {
 
 const uploadFiles = (cred, { server, path }, zip) => {
   const folderName = Date.now();
-  const fileName = _.last(zip.split("/"));
+  const fileName = last(zip.split("/"));
   const fullPath = path + "/" + folderName;
   const credCommand = "-i ~/.ssh/digitalo";
   const currentFolderPath = `${path}/${utils.CURRENT_DIR}`;
@@ -69,23 +70,28 @@ const uploadFiles = (cred, { server, path }, zip) => {
           ln -sfn ${fullPath} ${currentFolderPath}
         `
     );
-    console.log(c);
     return exec(c);
   });
 };
 
 const flow = options => {
-  const config = utils.applyOptions(utils.getConfig(options.config), options);
+  try {
+    const config = pipe(
+      utils.getConfig,
+      utils.applyOptions(options),
+      utils.validateConfig
+    )(options.config);
 
-  compressFiles(config)
-    .then(zip => {
-      console.log(zip);
-      return uploadFiles(options, config, zip.file);
-    })
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => console.log({ err }));
+    console.log(config);
+
+    compressFiles(config)
+      .then(zip => uploadFiles(options, config, zip.file))
+      .then(res => {
+        console.log("Deploy finished:", res);
+      });
+  } catch (err) {
+    console.log("ERROR:" + err.message);
+  }
 };
 
 module.exports = {

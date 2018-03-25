@@ -35,16 +35,6 @@ program
       server: cmd.server,
       path: cmd.path
     };
-    console.log(options);
-    // if (cmd.ssh) {
-    //   log("We use SSH:", cmd.ssh);
-    //   cred["ssh"] = cmd.ssh;
-    // } else if (cmd.token) {
-    //   log("We use Token:", cmd.token);
-    //   cred["token"] = cmd.token;
-    // } else {
-    //   log("Not valida arguments, Token or SSH req");
-    // }
     deploy.flow(options);
   });
 

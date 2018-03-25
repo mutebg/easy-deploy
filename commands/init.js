@@ -31,12 +31,8 @@ const questions = [
 const askQuestions = () => inquirer.prompt(questions);
 
 const createConfig = config => {
-  if (!utils.validateConfig(config)) {
-    return new Promise.reject("Not valid config");
-  }
-
+  config = utils.validateConfig(config);
   const pathRes = path.resolve(process.cwd(), utils.CONFIG_NAME);
-  //console.log(process.cwd());
   return writeFile(pathRes, JSON.stringify(config, null, "\t"), "utf8");
 };
 
@@ -44,10 +40,10 @@ const flow = () =>
   askQuestions()
     .then(createConfig)
     .then(end => {
-      console.log("done");
+      console.log(`Configuration has been created at ${utils.CONFIG_NAME}`);
     })
     .catch(err => {
-      console.log({ err });
+      console.log(`Can't create a config file`);
     });
 
 module.exports = {
