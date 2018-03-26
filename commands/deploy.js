@@ -6,6 +6,7 @@ const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const pipe = require("lodash/fp/pipe");
 const last = require("lodash/last");
+const ora = require("ora");
 
 const utils = require("../utils");
 
@@ -75,6 +76,8 @@ const uploadFiles = (cred, { server, path }, zip) => {
 };
 
 const flow = options => {
+  const spinner = ora("Start deployment").start();
+
   try {
     const config = pipe(
       utils.getConfig,
@@ -82,15 +85,17 @@ const flow = options => {
       utils.validateConfig
     )(options.config);
 
-    console.log(config);
-
     compressFiles(config)
       .then(zip => uploadFiles(options, config, zip.file))
       .then(res => {
-        console.log("Deploy finished:", res);
+        spinner.succeed("Deployment finished");
+      })
+      .catch(err => {
+        spinner.fail(err.message);
       });
   } catch (err) {
-    console.log("ERROR:" + err.message);
+    console.log("bla");
+    spinner.fail(err.message);
   }
 };
 

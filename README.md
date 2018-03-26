@@ -1,8 +1,5 @@
 TODO
 
-* Spinner: https://github.com/sindresorhus/ora
-* Better messages
-
 # easy-deploy
 
 Tool for deploying frontend projects
@@ -57,3 +54,7 @@ Deploy using ssh key
 ```
 tool-name --ssh=PATH_TO_KEY
 ```
+
+* Commander: CI interface https://github.com/tj/commander.js/
+* Ora: Spinner https://github.com/sindresorhus/ora
+* chalk: Terminal styling https://github.com/chalk/chalk
