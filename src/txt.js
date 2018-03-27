@@ -1,0 +1,20 @@
+module.exports = {
+  INIT_CMD_DESCRIPTION: "Init a project",
+  DEPLOY_CMD_DESCRIPTION: "Run deployment",
+  TOKEN_ARG_TITLE: "supply an auth token for this command",
+  SSH_ARG_TITLE: "supply an SSH for this command",
+  CONFIG_ARG_TITLE: "path to config",
+  SERVER_ARG_TITLE: "server name",
+  PATH_ARG_TITLE: "path on the server",
+  ERROR_MISSING_CONFIG: "Configuration file not found: ",
+  ERROR_WRONG_CONFIG: "Configuration file is missing those keys: ",
+  ERROR_CREATE_CONFIG: "Can't create a config file",
+  Q_INIT_ASK_PROJECT: "What is name of your project",
+  Q_INIT_ASK_PUBLIC: "What's public folder",
+  Q_INIT_ASK_SERVER: "What's your server IP/Domain (root@server)",
+  Q_INIT_ASK_PATH: "Path",
+  SUCCESS_INIT: "Configuration has been created at ",
+  SUCCESS_DEPLOY: "Deploy completed",
+  DEPLOY_START: "Start deployment",
+  INIT_START: "Creating started"
+};

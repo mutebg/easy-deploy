@@ -1,15 +1,25 @@
 {
   "name": "deploy-tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "",
+    "start": "",
+    "build": "",
+    "test": "",
+    "unit": "./node_modules/.bin/jest",
+    "unit:watch": "./node_modules/.bin/jest --watch",
+    "unit:coverage": "./node_modules/.bin/jest --coverage",
+    "lint": "./node_modules/.bin/eslint src",
+    "lint:fix": "./node_modules/.bin/eslint src --fix",
+    "format": "./node_modules/.bin/prettier --write  src/**/*.js",
+    "precommit": "./node_modules/.bin/lint-staged"
   },
   "author": "",
   "license": "ISC",
   "bin": {
-    "deploytool": "./index.js"
+    "deploytool": "./src/index.js"
   },
   "dependencies": {
     "commander": "^2.15.1",
@@ -19,5 +29,19 @@
     "ora": "^2.0.0",
     "tar": "^4.4.1",
     "tmp": "0.0.33"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "husky": "^0.15.0-rc.9",
+    "jest": "^22.4.2",
+    "lint-staged": "^7.0.0",
+    "prettier": "1.11.1"
+  },
+  "lint-staged": {
+    "src/*.{js,jsx}": [
+      "npm run lint:fix",
+      "npm run format",
+      "git add"
+    ]
   }
 }

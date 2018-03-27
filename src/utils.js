@@ -1,5 +1,7 @@
 const path = require("path");
 const _ = require("lodash");
+const chalk = require("chalk");
+const txt = require("./txt");
 
 const CONFIG_NAME = "deployconfig.json";
 const CURRENT_DIR = "current";
@@ -13,9 +15,7 @@ const validateConfig = config => {
     }
   });
   if (missing.length) {
-    throw Error(
-      `Configuration file is missing those keys: ${missing.join(",")}`
-    );
+    throw Error(txt.ERROR_WRONG_CONFIG + missing.join(","));
   }
   return config;
 };
@@ -26,7 +26,7 @@ const getConfig = name => {
     config = require(path.resolve(process.cwd(), configName));
     return config;
   } catch (e) {
-    throw Error(`Configuration file not found: ${configName}`);
+    throw Error(txt.ERROR_MISSING_CONFIG + configName);
   }
 };
 
@@ -40,10 +40,15 @@ const applyOptions = (options, config) => {
   return config;
 };
 
+const logError = error => {
+  console.log(chalk.bold.red("Error:"), chalk.underline(error.message));
+};
+
 module.exports = {
   CONFIG_NAME,
   CURRENT_DIR,
   validateConfig,
   getConfig,
+  logError,
   applyOptions: _.curry(applyOptions)
 };

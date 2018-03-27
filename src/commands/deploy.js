@@ -1,3 +1,4 @@
+//
 const fs = require("fs");
 const tar = require("tar");
 const tmp = require("tmp");
@@ -76,7 +77,7 @@ const uploadFiles = (cred, { server, path }, zip) => {
 };
 
 const flow = options => {
-  const spinner = ora("Start deployment").start();
+  const spinner = ora(txt.DEPLOY_START).start();
 
   try {
     const config = pipe(
@@ -88,14 +89,15 @@ const flow = options => {
     compressFiles(config)
       .then(zip => uploadFiles(options, config, zip.file))
       .then(res => {
-        spinner.succeed("Deployment finished");
+        spinner.succeed(txt.SUCCESS_DEPLOY);
       })
       .catch(err => {
-        spinner.fail(err.message);
+        spinner.stop();
+        utils.logError(err);
       });
   } catch (err) {
-    console.log("bla");
-    spinner.fail(err.message);
+    spinner.stop();
+    utils.logError(err);
   }
 };
 

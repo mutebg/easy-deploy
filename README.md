@@ -12,7 +12,8 @@ config.json
 {
   "project": "id-of-the-project",
   "public": "public",
-  "server": "server-name or api"
+  "server": "server-name or api",
+  "path": "path to the http folder"
 }
 ```
 
@@ -24,37 +25,17 @@ Initialize a project: ask you for project name and project directory, also check
 tool-name init
 ```
 
-Login: ask for credentials
+Deploy the code to the server, default command is "deploy"
 
 ```
-tool-name login
-```
-
-Generate token: generate token, usefull for CI/CD deployment
-
-```
-tool-name create-token
-```
-
-Deploy the code to the server, defalut command is "deploy"
-
-```
-tool-name
 tool-name deploy
-```
-
-Deploy using token
-
-```
-tool-name --token=TOKEN_HERE
 ```
 
 Deploy using ssh key
 
 ```
-tool-name --ssh=PATH_TO_KEY
+tool-name deploy --ssh="supply an SSH for this command"
+tool-name deploy --config="path to config"
+tool-name deploy --server="server name"
+tool-name deploy --path="path on the server"
 ```
-
-* Commander: CI interface https://github.com/tj/commander.js/
-* Ora: Spinner https://github.com/sindresorhus/ora
-* chalk: Terminal styling https://github.com/chalk/chalk
