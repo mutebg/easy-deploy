@@ -10,6 +10,7 @@ const last = require("lodash/last");
 const ora = require("ora");
 
 const utils = require("../utils");
+const txt = require("../txt");
 
 const listFiles = (cwd, ignore = []) => {
   return glob("**/*", {

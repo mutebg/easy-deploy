@@ -41,7 +41,7 @@ const applyOptions = (options, config) => {
 };
 
 const logError = error => {
-  console.log(chalk.bold.red("Error:"), chalk.underline(error.message));
+  console.log(chalk.bold.red("Error:"), chalk(error.message));
 };
 
 module.exports = {
